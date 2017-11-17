@@ -37,7 +37,11 @@ QMP_declare_msgmem_mpi(QMP_msgmem_t mem)
 			    mem->mm.sa.stride[i], MPI_BYTE, &dt[i]);
       QMP_assert(err==MPI_SUCCESS);
     }
+#if MPI_VERSION < 2
     err = MPI_Type_struct(n, ones, disp, dt, &(mem->mpi_type));
+#else
+    err = MPI_Type_create_struct(n, ones, disp, dt, &(mem->mpi_type));
+#endif
     QMP_assert(err==MPI_SUCCESS);
     err = MPI_Type_commit(&(mem->mpi_type));
     QMP_assert(err==MPI_SUCCESS);
