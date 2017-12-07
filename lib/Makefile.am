@@ -2,7 +2,7 @@
 
 INCDIR=@top_srcdir@/include
 INCFLAGS=-I$(INCDIR)
-AM_CFLAGS=$(INCFLAGS) @QMP_COMMS_CFLAGS@
+AM_CFLAGS=-std=c99 $(INCFLAGS) @QMP_COMMS_CFLAGS@
 
 lib_LIBRARIES = libqmp.a
 
